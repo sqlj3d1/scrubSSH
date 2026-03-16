@@ -1,0 +1,9 @@
+# Runtime dependencies: none (stdlib-only)
+
+# Packaging / installs
+setuptools>=61.0
+wheel
+
+# Testing
+pytest>=7.0
+
