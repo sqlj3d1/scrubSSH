@@ -14,23 +14,76 @@ scrubssh
 
 ## Basic Usage
 
-- List entries (default user `known_hosts`):
+List entries (default user `known_hosts`):
 
 ```bash
 scrub_ssh list
 ```
 
-- Dry-run delete of HTB-related entries:
+List HTB-suspect entries only (using config presets):
+
+```bash
+scrub_ssh list --htb
+```
+
+Delete all HTB-suspect entries, but **dry-run** first:
 
 ```bash
 scrub_ssh delete --htb --dry-run
+scrub_ssh delete --htb
 ```
 
-- Interactive cleanup of a specific file:
+Delete everything for an HTB VPN / VIP subnet:
+
+```bash
+scrub_ssh delete --cidr 10.10.10.0/24 --dry-run
+scrub_ssh delete --cidr 10.10.10.0/24
+```
+
+Delete entries for a single box IP:
+
+```bash
+scrub_ssh delete --ip 10.10.10.10
+```
+
+Delete entries matching a hostname pattern:
+
+```bash
+scrub_ssh delete --match "*htb*"
+```
+
+Interactive cleanup of a specific file:
 
 ```bash
 scrub_ssh interactive --file ~/.ssh/known_hosts
 ```
 
-More detailed usage and examples will be available via `scrub_ssh --help` once the tool is installed.
+Target system-wide `known_hosts` (needs sudo):
+
+```bash
+sudo scrub_ssh list --system
+sudo scrub_ssh delete --system --htb --dry-run
+sudo scrub_ssh delete --system --htb
+```
+
+Create just a backup of your `known_hosts`:
+
+```bash
+scrub_ssh backup
+```
+
+Restore from a backup:
+
+```bash
+scrub_ssh restore ~/.ssh/known_hosts.bak-20260316-145230
+```
+
+For all options:
+
+```bash
+scrub_ssh --help
+scrub_ssh list --help
+scrub_ssh delete --help
+```
+
 
